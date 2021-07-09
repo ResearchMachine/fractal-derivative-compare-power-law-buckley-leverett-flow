@@ -111,7 +111,6 @@ def M005(t,xfr):
 	f=a*t**1.2618
 	return(f)
 
-
 def FindDelta_delta01(xfr):
 	global sigma01, SubdivizionTrue01
 	N=len(sigma01)
@@ -135,20 +134,15 @@ def FindDelta_delta005(xfr):
 	mmin=min([sigma005[i+1]-sigma005[i] for i in range(0,N1-1)])	
 	mmax=max([sigma005[i+1]-sigma005[i] for i in range(0,N1-1)])
 	return(mmin,mmax)
-
-
-
-#---------------------------конец
-
+#---------------------------
 
 #решение сО степенными законами
-#------------------------------------------------------------------НАЧАЛО РАСЧЕТНОЙ ФРАКТАЛЬНОЙ ЧАСТИ
+#------------------------------------------------------------------НАЧАЛО расчетной части построения фрактала
 ChZnPoZap=3	
 ShagT=1/10**ChZnPoZap
 ChisloUzlovFractala=int(10**ChZnPoZap)
 ChiUzFrFloat=10**ChZnPoZap
 Pi = 3.1415926
-
 
 def dig (t, n):
     s = t
@@ -169,7 +163,6 @@ def g (a, b):
 def complexExp (a):
     return(ma.cos(a)+complex(0,1)*ma.sin(a))
 
-
 def Koch (n, t):
     alpha = Pi / 3
     c = 1 / (2 + 2 * ma.cos(alpha))
@@ -184,7 +177,6 @@ def Koch (n, t):
     for k in range(1, n + 1):
         r = r + g(dig(t, 2 * k - 1), dig(t, 2 * k))
     return(c ** n * TaTau(t, n) * complexExp(alpha * r) + r1)
-
 	
 #значения параметра 
 zz = np.zeros(ChisloUzlovFractala+2)
@@ -194,7 +186,6 @@ while zz[j]<1:
 	j=j+1
 	zz[j]=zz[j-1]+ShagT
 	
-
 RRR=[Koch (6, zz[i]) for i in range(0,ChisloUzlovFractala)]
 RRR.append(complex(1,0))
 
@@ -206,8 +197,6 @@ for i in range(0,ChisloUzlovFractala+1):
 	yFrac.append(RRR[i].imag) 
 ChisloUzlovFractala=len(xFrac)
 	
-
-
 
 l1=str(xFrac)
 l2=str(yFrac)
@@ -225,8 +214,7 @@ def KoxaFunction(t):
 		return(1,0)
 	return(xFrac[tt],yFrac[tt])
 	
-#-----------------------------------------------------------------КОНЕЦ РАСЧЕТНОЙ ФРАКТАЛЬНОЙ ЧАСТИ
-
+#-----------------------------------------------------------------КОНЕЦ расчетной части построения фрактала
 
 #------------------------------------------------------------------------------------------линейная интерполяция
 #фрактальная часть
@@ -239,11 +227,10 @@ def LinearInterpSol(t,localSol):
 		if t<=SsetkaDlyaVsehResh[i+1] and t>=SsetkaDlyaVsehResh[i]:
 			return((localSol[i] - localSol[i + 1]) / (SsetkaDlyaVsehResh[i] - SsetkaDlyaVsehResh[i + 1])*t+(SsetkaDlyaVsehResh[i] * localSol[i + 1] - SsetkaDlyaVsehResh[i + 1] * localSol[i]) / (SsetkaDlyaVsehResh[i] - SsetkaDlyaVsehResh[i + 1]))			
 
-
 #-------------------------подготовка данных для отрисовки
 t =np.linspace(0, 1, ChisloUzlovFractala)
 
-#объявляем пустые массивы
+#объявляем переменные
 #-----------------------решения
 plotSolFalpha01_005 = np.linspace(0, 1, ChisloUzlovFractala)
 plotSolFalpha01_01 = np.linspace(0, 1, ChisloUzlovFractala)
@@ -289,12 +276,11 @@ plotWrongSolPower005_01 = np.linspace(0, 1, ChisloUzlovFractala)
 plotWrongSolPower005_015 = np.linspace(0, 1, ChisloUzlovFractala)
 plotWrongSolPower005_02 = np.linspace(0, 1, ChisloUzlovFractala)
 
-
 plotWhithoutStickFalphaSol01_005=np.linspace(0, 1, ChisloUzlovFractala)
 plotWhithoutStickPowerSol01_005=np.linspace(0, 1, ChisloUzlovFractala)
 
 
-#заполняем пустые массивы
+#заполняем переменные
 for i in range(0,ChisloUzlovFractala):
 #-----------------------решения
 	plotSolFalpha01_005[i]=LinearInterpSol(t[i],FalphaSol01_005)
@@ -342,16 +328,12 @@ for i in range(0,ChisloUzlovFractala):
 	plotWrongSolPower005_01[i]=LinearInterpSol(t[i],WrongPowerSol005_01)
 	plotWrongSolPower005_015[i]=LinearInterpSol(t[i],WrongPowerSol005_015)
 	plotWrongSolPower005_02[i]=LinearInterpSol(WrongPowerSol005_02[i],t)
-#-----------------------Без палки
+#-----------------------Без палки (скачка насыщенности)
 	plotWhithoutStickFalphaSol01_005[i]=LinearInterpSol(t[i],WhithoutStickFalphaSol01_005)
 	plotWhithoutStickPowerSol01_005[i]=LinearInterpSol(t[i],WhithoutStickPowerSol01_005)
-
-	
-	
-	
 	
 
-#------------------старье
+#------------------для отрисовки фрактала
 plotSolFalpha01 = np.linspace(0, 1, ChisloUzlovFractala)
 plotSolFalpha005 = np.linspace(0, 1, ChisloUzlovFractala)
 	
@@ -359,9 +341,6 @@ for i in range(0,ChisloUzlovFractala):
 	plotSolFalpha005[i]=LinearInterpSolFalphaFunction005(t[i])	
 for i in range(0,ChisloUzlovFractala):
 	plotSolFalpha01[i]=LinearInterpSolFalphaFunction01(t[i])	
-#------------------старье конец
-
-
 #-------------------------------------------------------------------------------------------КОНЕЦ подготовки данных для отрисовки
 #-------------------------------------------------------------------------------------------КОНЕЦ подготовки данных для отрисовки
 #-------------------------------------------------------------------------------------------КОНЕЦ подготовки данных для отрисовки
@@ -382,7 +361,6 @@ ax.xaxis.pane.set_edgecolor('w')
 ax.yaxis.pane.set_edgecolor('w')
 ax.zaxis.pane.set_edgecolor('w')
 
-
 mpl.rcParams['legend.fontsize'] = 12
 
 ax.plot(xFrac, yFrac, plotSolFalpha005, label=r"$\overline{s}(x,t)$ for $\delta_1, \Delta_1$", color='xkcd:deep brown')
@@ -391,15 +369,11 @@ ax.plot(xFrac, yFrac, 0, color='black')
 ax.set_xlabel(r"$Y^1$",fontsize=14)
 ax.set_ylabel(r"$Y^2$",fontsize=14)
 ax.set_zlabel(r"$Saturation$",fontsize=14)
-
 ax.legend()
-
 
 #------------------------------------------------------------------------------------------------------------
 # ------------------- ГРАФИКИ РЕШЕНИЙ ДЛЯ РАЗНЫХ ДЕЛЬТ 
 #------------------------------------------------------------------------------------------------------------
-
-
 
 #------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------ДЕЛЬТА 0.018
@@ -423,7 +397,6 @@ fig2.legend([g1, g2, g3],[r"Power-law model",r"$F^{\alpha}-model$", r"$F^{\alpha
            loc="upper left", bbox_to_anchor=(0.5,0.46),   # Position of legend
            borderaxespad=0.1   # Small spacing around legend box
            )
-
 
 
 #графики масс
@@ -612,8 +585,6 @@ ax.plot(plotWrongSolFalpha005_02,t, color='b')
 ax.text(FalphaSol005_02[1]-0.06, 0.1, "$0.2$",fontsize=13)
 
 
-
-
 ax.plot(plotWrongSolPower005_01,t, color='red',dashes=[6, 2])
 ax.plot(plotWrongSolPower005_015,t, color='red',dashes=[6, 2])
 ax.plot(plotWrongSolPower005_02,t, color='red',dashes=[6, 2])
@@ -629,7 +600,3 @@ ax.set_ylim(0, 1)
 print(FindDelta_delta01(1))
 print(FindDelta_delta005(1))
 plt.show()
-
-
-
-
