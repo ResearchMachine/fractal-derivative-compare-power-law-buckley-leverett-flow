@@ -1,5 +1,3 @@
-# Buckley-Leverett-model-with-fractal-space-derivatives
-
 # Derivation and study of a new mathematical model of oil movement. Accounting for the limited fractality of a porous medium (2020)
 **Project Type:** Work Project, Math Modeling, Academic Research  
 **Programming Language:** Python 3, [Maple 18](https://en.wikipedia.org/wiki/Maple_(software))  
