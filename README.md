@@ -22,8 +22,7 @@ Project tasks:
 ### III. Key Results 
 * Implemented the algorithm for constructing a mass function from the article https://arxiv.org/abs/0906.0676 (Calculus on Fractal Curves in R^n);  
 * A new model of Buckley-Leverett in fractal media has been developed and the mathematical consistency of the model has been shown;  
-* A comparative analysis was carried out with a computationally simpler generalization method, a case is shown when this can be done.  
-* @KEYRESULT.
+* A comparative analysis was carried out with a computationally simpler generalization method, a case is shown when this can be done.
 
 ### III. Content
 
